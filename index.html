@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Nokia Maps Mashup</title>
+		<style>
+		html,body, #mapContainer {
+			font-family: sans-serif;
+			background: #fff;
+			color: #444;
+			height: 100%;
+			padding:0;
+			margin:0;
+		}
+		</style>
+		<script src="http://api.maps.nokia.com/2.1.0/jsl.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+		<link rel="icon" href="http://maps.nokia.com/favicon.ico">
+	</head>
+	<body>
+		<div id="mapContainer"></div>
+		<script>
+		(function() {
+		    init = function() {
+				
+		        // Authentication set-up is the first thing that you must do with the API 
+		        nokia.maps.util.ApplicationContext.set({
+		            "appId": "YOUR_APP_ID",
+		            "authenticationToken": "YOUR_AUTHENTICATION_TOKEN"
+		        });
+
+		        createMap();
+		        // ensureSize();
+
+				// This makes sure the map is always the right size
+		        // $(window).resize(ensureSize);
+		    };
+		    createMap = function() {
+		        var mapContainer = document.getElementById("mapContainer"),
+		        	map = new nokia.maps.map.Display(mapContainer, {
+		            center: [52.51, 13.4],
+		            zoomLevel: 5,
+		            components: [
+		                new nokia.maps.map.component.ZoomBar(),
+		                new nokia.maps.map.component.Behavior(),
+		                new nokia.maps.map.component.TypeSelector(),
+		                new nokia.maps.map.component.Traffic(),
+		                new nokia.maps.map.component.PublicTransport(),
+		                new nokia.maps.map.component.Overview(),
+		                new nokia.maps.map.component.ScaleBar(),
+		                new nokia.maps.positioning.component.Positioning(),
+		                new nokia.maps.map.component.RightClick(),
+		                new nokia.maps.search.component.RightClick(),
+		                new nokia.maps.routing.component.RightClick()]
+		        });
+		    };
+
+		    ensureSize = function() {
+		        // $('#mapContainer').height($('body').height() - $('#header').height());
+		    };
+
+		    $(function() {
+		        init();
+		    });
+		})();
+		</script>
+	</body>
+</html>
