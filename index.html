@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Nokia Maps Mashup</title>
+		<title>HERE Boilerplate</title>
 		<style>
 		html,body, #mapContainer {
 			font-family: sans-serif;
@@ -13,15 +13,17 @@
 			margin:0;
 		}
 		</style>
-		<script src="http://api.maps.nokia.com/2.2.0/jsl.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-		<link rel="icon" href="http://maps.nokia.com/favicon.ico">
+		<script src="http://api.maps.nokia.com/2.2.3/jsl.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+		<link rel="icon" href="http://here.com/favicon.ico">
 	</head>
 	<body>
 		<div id="mapContainer"></div>
 		<script>
 		(function() {
-		    init = function() {
+			var map;
+
+		    function init() {
 				
 		        // Authentication set-up is the first thing that you must do with the API 
 		        nokia.maps.util.ApplicationContext.set({
@@ -30,36 +32,30 @@
 		        });
 
 		        createMap();
-		        // ensureSize();
 
-				// This makes sure the map is always the right size
-		        // $(window).resize(ensureSize);
+		        // Do whatever other stuff you want to here
+
 		    };
-		    createMap = function() {
-		        var mapContainer = document.getElementById("mapContainer"),
-		        	map = new nokia.maps.map.Display(mapContainer, {
-		            center: [52.51, 13.4],
-		            zoomLevel: 5,
-		            components: [
-		                new nokia.maps.map.component.ZoomBar(),
-		                new nokia.maps.map.component.Behavior(),
-		                new nokia.maps.map.component.TypeSelector(),
-		                new nokia.maps.map.component.Traffic(),
-		                new nokia.maps.map.component.PublicTransport(),
-		                new nokia.maps.map.component.Overview(),
-		                new nokia.maps.map.component.ScaleBar(),
-		                new nokia.maps.positioning.component.Positioning()]
+
+		    // We create a map centered on the HERE office in Berlin
+		    function createMap() {
+		        var mapContainer = document.getElementById("mapContainer");
+	        	map = new nokia.maps.map.Display(mapContainer, {
+	            center: [52.53,13.39],
+	            zoomLevel: 14, // Bigger numbers are closer in
+	            components: [  // We use these components to make the map interactive
+	                new nokia.maps.map.component.ZoomBar(),
+	                new nokia.maps.map.component.Behavior()
+	                ]
 		        });
 		    };
 
-		    ensureSize = function() {
-		        // $('#mapContainer').height($('body').height() - $('#header').height());
-		    };
-
-		    $(function() {
+			$(function() {
 		        init();
 		    });
+
 		})();
+		
 		</script>
 	</body>
 </html>
